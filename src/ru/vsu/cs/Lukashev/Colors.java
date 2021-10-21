@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 public class Colors
 {
-
     private Color red= Color.RED;
     private Color green=Color.green;
     private Color blue=Color.BLUE;
@@ -28,14 +27,8 @@ public class Colors
                     magenta,
                     orange,
                      cyan,
-//                    pink//7
+                    pink//7
             };
-
-    public void setArrColors(Color[] arrColors)
-    {
-        this.arrColors = arrColors;
-    }
-
 
 
     public Color[] getArrColors() {

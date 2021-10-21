@@ -8,88 +8,43 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-//import java.util.ArrayList;
-
-public class FlasksPaint extends JPanel
+public class FlasksList
 {
     int xLeftUpper=200;
     int yLeftUpper=170;
     private List<Color> f = new ArrayList<>();
-    private final List<Flask> flaskList= new ArrayList<>();
+    private  List<Flask> flaskList= new ArrayList<>();
     private Color[] lowLayerColor;
     private  Color[] middleLayerColor;
-    private Color[] UpLayerColor;
+    private Color[] upLayerColor;
     private final int n=8;
 
 
-    public FlasksPaint(int xLeftUpper, int yLeftUpper, Color[] lowLayerColor, Color[] middleLayerColor, Color[] upLayerColor)
+    public FlasksList(int xLeftUpper, int yLeftUpper, Color[] lowLayerColor, Color[] middleLayerColor, Color[] upLayerColor)
     {
         this.xLeftUpper = xLeftUpper;
         this.yLeftUpper = yLeftUpper;
         this.lowLayerColor = lowLayerColor;
         this.middleLayerColor = middleLayerColor;
-        this.UpLayerColor = upLayerColor;
-
-
-
+        this.upLayerColor = upLayerColor;
     }
 
 
-    public Color getListColor(int i){return flaskList.get(i).getListLastColor();}
-    public void setListColor(Color color, int i)
+    public Color getFromListLastColor(int i){return flaskList.get(i).getListLastColor();}
+    public void setIntoListLastColor(Color color, int i)
     {
         flaskList.get(i).setListColor(color);
     }
 
-    public int isPointFlask(int x, int y)
+
+
+
+    public List<Flask> getFlaskList() {
+        return flaskList;
+    }
+    public Flask getFlaskFromList(int i)
     {
-        int xFlaskContainer;
-        int yFlaskContainer;
-        for(int i=0;i<n;i++)
-        {
-            xFlaskContainer=flaskList.get(i).getxFlask();
-            yFlaskContainer=flaskList.get(i).getyFlask();
-            if(x>xFlaskContainer-20&&x<xFlaskContainer+120
-                    &&y>yFlaskContainer-20&&y<yFlaskContainer+200)
-            {
-                return i;
-            }
-        }
-
-        return 666;
-    }
-
-
-    public boolean checkWinner()
-    {
-        ArrayList<Color> listColor;
-        Color colorContainer;
-        for(int i=0;i<n;i++)
-        {
-            listColor=flaskList.get(i).getListColor();
-            colorContainer=listColor.get(0);
-            for(Color color: listColor)
-            {
-                if (!colorContainer.equals(color))
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public void setLowLayerColor(Color[] lowLayerColor)
-    {
-        this.lowLayerColor = lowLayerColor;
-    }
-
-    public void setMiddleLayerColor(Color[] middleLayerColor) {
-        this.middleLayerColor = middleLayerColor;
-    }
-
-    public void setUpLayerColor(Color[] upLayerColor) {
-        this.UpLayerColor = upLayerColor;
+        return flaskList.get(i);
     }
 
     public void addFlaskList()
@@ -111,13 +66,7 @@ public class FlasksPaint extends JPanel
         }
     }
 
-    public void drawFlaskList(Graphics2D g)
-    {
-        for(int i=0; i<n; i++)
-        {
-            flaskList.get(i).paint(g);
-        }
-    }
+
 
 
     public Color getLowLayerColor() {
@@ -140,7 +89,7 @@ public class FlasksPaint extends JPanel
             }
         }
         newArrColor[lowLayerColor.length-1]=Color.GRAY;
-        setLowLayerColor(newArrColor);
+        lowLayerColor=newArrColor;
         return color;
     }
 
@@ -166,7 +115,7 @@ public class FlasksPaint extends JPanel
             }
         }
         newArrColor[middleLayerColor.length-1]=Color.GRAY;
-        setMiddleLayerColor(newArrColor);
+        middleLayerColor=newArrColor;
         return color;
     }
 
@@ -175,26 +124,31 @@ public class FlasksPaint extends JPanel
     {
         int count=0;
         Color color;
-        for (Color value : UpLayerColor) {
+        for (Color value : upLayerColor) {
             if (value == Color.GRAY) {
                 count++;
             }
         }
-        int i= (int) (Math.random() * (UpLayerColor.length-count));
-        Color[] newArrColor= new Color[UpLayerColor.length];
-        color= UpLayerColor[i];
-        for(int t = 0, k = 0; t< UpLayerColor.length; t++)
+        int i= (int) (Math.random() * (upLayerColor.length-count));
+        Color[] newArrColor= new Color[upLayerColor.length];
+        color= upLayerColor[i];
+        for(int t = 0, k = 0; t< upLayerColor.length; t++)
         {
             if(t!=i)
             {
-                newArrColor[k]= UpLayerColor[t];
+                newArrColor[k]= upLayerColor[t];
                 k++;
             }
         }
-        newArrColor[UpLayerColor.length-1]=Color.GRAY;
-        setUpLayerColor(newArrColor);
+        newArrColor[upLayerColor.length-1]=Color.GRAY;
+        upLayerColor=newArrColor;
         return color;
     }
+
+    public int getN() {
+        return n;
+    }
+
 
     /**
      *
@@ -204,7 +158,7 @@ public class FlasksPaint extends JPanel
      *
      */
 
-    private static class Flask
+    static class Flask extends JPanel
     {
         private final int xFlask;
         private final int yFlask;
@@ -224,7 +178,7 @@ public class FlasksPaint extends JPanel
             listColor.add(2, upLayer);
         }
 
-        public ArrayList<Color> getListColor()
+        public List<Color> getListColor()
         { return listColor;}
 
         public Color getListLastColor()
@@ -267,8 +221,6 @@ public class FlasksPaint extends JPanel
             }
         }
 
-
-
         public Flask(int xFlask, int yFlask, Color lowLayer, Color middleLayer, Color upLayer)
         {
             this.xFlask = xFlask;
@@ -278,8 +230,6 @@ public class FlasksPaint extends JPanel
             this.upLayer = upLayer;
             listColorAddColor();
         }
-
-
 
         public void drawFlask(Graphics2D g) {
 
