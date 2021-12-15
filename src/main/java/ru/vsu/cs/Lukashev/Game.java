@@ -1,9 +1,6 @@
 package ru.vsu.cs.Lukashev;
 
 import java.awt.*;
-import java.lang.annotation.Target;
-import java.nio.file.Path;
-import java.nio.file.attribute.GroupPrincipal;
 import java.util.List;
 
 public class Game

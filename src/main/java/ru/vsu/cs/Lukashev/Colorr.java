@@ -1,7 +1,5 @@
 package ru.vsu.cs.Lukashev;
 
-import java.awt.*;
-
 public class Colorr {
     private int r,g, b;
 

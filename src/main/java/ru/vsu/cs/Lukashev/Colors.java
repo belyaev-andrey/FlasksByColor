@@ -1,7 +1,6 @@
 package ru.vsu.cs.Lukashev;
 
 import java.awt.*;
-import java.util.Arrays;
 
 
 public class Colors
